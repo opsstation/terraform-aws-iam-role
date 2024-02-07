@@ -2,7 +2,7 @@
 ## Labels module callled that will be used for naming and tags.
 ##-----------------------------------------------------------------------------
 module "lables" {
-  source      = "git::git@github.com:opsstation/terraform-aws-labels.git"
+  source      = "git::https://github.com/opsstation/terraform-aws-labels.git?ref=v1.0.0"
   enabled     = var.enabled
   name        = var.name
   repository  = var.repository
