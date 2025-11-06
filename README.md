@@ -1,23 +1,27 @@
 # terraform-aws-iam-role
-# AWS IAM Role Terraform Configuration
+[![Latest Release](https://img.shields.io/github/release/opsstation/terraform-aws-vpc-peering.svg)](https://github.com/opsstation/terraform-aws-vpc-peering/releases/latest)
+[![tfsec](https://github.com/opsstation/terraform-aws-vpc-peering/actions/workflows/tfsec.yml/badge.svg)](https://github.com/opsstation/terraform-aws-vpc-peering/actions/workflows/tfsec.yml)
+[![License](https://img.shields.io/badge/License-APACHE-blue.svg)](LICENSE.md)
+[![Changelog](https://img.shields.io/badge/Changelog-blue)](CHANGELOG.md)
 
-## Table of Contents
+---
 
-- [Introduction](#introduction)
-- [Usage](#usage)
-- [Module Inputs](#module-inputs)
-- [Module Outputs](#module-outputs)
-- [Examples](#examples)
-- [Author](#author)
-- [License](#license)
+## 📘 Description
 
-## Introduction
+Terraform module to create and manage **AWS VPC Peering Connections** between two VPCs.
+This module supports both **intra-account** and **cross-account** peering setups, including automatic route table updates and tagging via the [Labels Module](https://github.com/opsstation/terraform-aws-labels).
 
-This Terraform configuration sets up an AWS Identity and Access Management (IAM) role with associated policies, specifically designed for EC2 instances. The role allows EC2 instances to assume it and has a policy granting permissions related to AWS Systems Manager (SSM).
+---
+⚙️ Features
 
-## Usage
+- ✅ Create AWS IAM Roles with customizable policies and trust relationships
+- 🔄 Supports assume role policies for services or cross-account access
+- 🧩 Integration with Labels Module for consistent resource tagging
+- 🔐 Attach managed or inline policies securely
+- 📈 Option to enable permissions boundaries for controlled access
+- 🧠 Supports role chaining and service-linked roles
 
-To get started, make sure you have configured your AWS provider. You can use the following code as a starting point:
+## 🚀 Usage Example
 
 ```hcl
 
@@ -30,43 +34,6 @@ module "iam-role" {
   policy             = data.aws_iam_policy_document.iam-policy.json
 }
 ```
-
-## Examples
-For detailed examples on how to use this module, please refer to the [examples](https://github.com/opsstation/terraform-aws-iam-role/tree/master/_example) directory within this repository.
-
-## Author
-Your Name Replace '[License Name]' and '[Your Name]' with the appropriate license and your information. Feel free to expand this README with additional details or usage instructions as needed for your specific use case.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/opsstation/terraform-aws-iam-role/blob/master/LICENSE) file for details.
-
-<!-- BEGIN_TF_DOCS -->
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.5.0 |
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.5.0 |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_lables"></a> [lables](#module\_lables) | git::https://github.com/opsstation/terraform-aws-labels.git | v1.0.0 |
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_iam_role.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role_policy.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
-| [aws_iam_role_policy_attachment.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 
 ## Inputs
 
@@ -98,4 +65,15 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 | <a name="output_policy"></a> [policy](#output\_policy) | The policy document attached to the role. |
 | <a name="output_role"></a> [role](#output\_role) | The name of the role associated with the policy. |
 | <a name="output_tags"></a> [tags](#output\_tags) | A mapping of tags to assign to the resource. |
-<!-- END_TF_DOCS -->
+
+---
+### ☁️ Tag Normalization Rules (AWS)
+
+| Cloud | Case      | Allowed Characters | Example                            |
+|--------|-----------|------------------|------------------------------------|
+| **AWS** | TitleCase | Any              | `Name`, `Environment`, `CostCenter` |
+
+---
+
+### 💙 Maintained by [OpsStation](https://www.opsstation.com)
+> OpsStation — Simplifying Cloud, Securing Scale.

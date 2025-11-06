@@ -1,0 +1,62 @@
+name: terraform-aws-iam-role
+license: MIT
+github_repo: opsstation/terraform-aws-iam-role
+registry_publish: true
+
+tags:
+  - terraform
+  - aws
+  - iam
+  - role
+  - security
+  - devops
+
+description: |
+  Terraform module to create and manage AWS IAM Roles with support for custom policies, trust relationships, and permissions boundaries.
+  Supports integration with the Labels module for consistent resource tagging.
+
+introduction: |
+  This module allows you to create AWS IAM Roles with full flexibility for attaching managed and inline policies, defining assume role policies, and controlling access using permissions boundaries.
+  Ideal for both cross-account access and AWS service integrations.
+
+features:
+  - ✅ Create **AWS IAM Roles** with customizable trust policies
+  - 🔄 Supports **assume role policies** for services and cross-account setups
+  - 🧩 Integration with **Labels Module** for consistent resource tagging
+  - 🔐 Attach **managed** and **inline policies**
+  - 📈 Supports **permissions boundaries**
+  - 🧠 Allows **role chaining** and service-linked roles
+
+usage: |
+  ```hcl
+  module "iam_role" {
+    source      = "opsstation/iam-role/aws"
+    version     = "1.0.0"
+
+    name        = "lambda"
+    environment = "dev"
+
+    assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
+
+    managed_policy_arns = [
+      "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+    ]
+
+    inline_policies = {
+      extra_access = jsonencode({
+        Version = "2012-10-17"
+        Statement = [{
+          Effect   = "Allow"
+          Action   = ["s3:ListBucket"]
+          Resource = ["*"]
+        }]
+      })
+    }
+
+    permissions_boundary = "arn:aws:iam::123456789012:policy/permissions-boundary"
+
+    labels = {
+      project = "myapp"
+      owner   = "devteam"
+    }
+  }
